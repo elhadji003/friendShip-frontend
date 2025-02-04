@@ -66,12 +66,12 @@ const LoginRegister = () => {
                     gender: formData.gender, // Envoi du gender lors de l'inscription
                 }).unwrap();
                 toast.success("Inscription réussie");
-                setIsLogin(true);  // Changer l'état pour passer à la page de connexion
-                navigate('/login');  // Rediriger vers la page de connexion après l'inscription
+                setIsLogin(true);
+                navigate('/login-register');
                 refetch();
             }
         } catch (error) {
-            toast.error(error.message || "Une erreur est survenue, veuillez réessayer.");
+            console.log(error.message || "Une erreur est survenue, veuillez réessayer.");
         }
     };
 
