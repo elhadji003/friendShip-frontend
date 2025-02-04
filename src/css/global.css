@@ -1,0 +1,31 @@
+@keyframes border-anim {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  .animate-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, transparent, white, transparent);
+    animation: border-anim 1.5s infinite linear;
+  }
+  
+  @keyframes plane-move {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  .animate-plane {
+    animation: plane-move 5s linear infinite;
+  }
+  
