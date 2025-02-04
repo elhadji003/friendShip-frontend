@@ -102,7 +102,11 @@ const Profile = () => {
     };
 
     if (isLoading) {
-        return <div className="text-center">Chargement...</div>;
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="border-t-4 border-gray-500 border-solid rounded-full h-16 w-16 animate-spin"></div>
+            </div>
+        );
     }
 
     if (error) {
@@ -246,9 +250,13 @@ const Profile = () => {
             <div className="mt-6 flex justify-end space-x-4">
                 <button
                     onClick={() => setIsEditing(!isEditing)}
-                    className="px-4 py-2 text-white bg-blue-600 rounded-md"
+                // className="px-4 py-2 text-white bg-blue-600 rounded-md"
                 >
-                    {isEditing ? "Annuler" : "Modifier"}
+                    {isEditing
+                        ? <span className="bg-red-500 px-4 py-2 text-white bg-blue-600 rounded-md">Annuler</span>
+                        : <span className="bg-black px-4 py-2 text-white bg-blue-600 rounded-md">Modifier</span>
+
+                    }
                 </button>
 
                 {isEditing && (
@@ -265,7 +273,7 @@ const Profile = () => {
                 {profileImage && (
                     <button
                         onClick={handleSaveProfileImage}
-                        className="px-4 py-2 text-white bg-green-600 rounded-md"
+                        className="px-4 py-2 text-white bg-black rounded-md"
                     >
                         Sauvegarder l'image
                     </button>

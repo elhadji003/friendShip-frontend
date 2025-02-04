@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetMeQuery, useLoginMutation, useRegisterMutation } from '../features/auth/authApi';
+import { useLoginMutation, useRegisterMutation } from '../features/auth/authApi';
 
 const LoginRegister = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -17,7 +17,6 @@ const LoginRegister = () => {
 
     const [login, { isLoading: isLoginLoading }] = useLoginMutation();
     const [register, { isLoading: isRegisterLoading }] = useRegisterMutation();
-    const { data: user } = useGetMeQuery()
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,8 +44,10 @@ const LoginRegister = () => {
             if (isLogin) {
                 const response = await login({ email: formData.email, password: formData.password }).unwrap();
                 localStorage.setItem("token", response.token);
+                localStorage.setItem("role", response.role);
 
-                const isAdmin = user?.role == "admin"
+                // Vérifier le rôle de l'utilisateur
+                const isAdmin = response.role === "admin";
 
                 if (isAdmin) {
                     navigate('/dashboard-admin');
@@ -67,12 +68,13 @@ const LoginRegister = () => {
                 toast.success("Inscription réussie");
                 setIsLogin(true);  // Changer l'état pour passer à la page de connexion
                 navigate('/login');  // Rediriger vers la page de connexion après l'inscription
-                refetch()
+                refetch();
             }
         } catch (error) {
             toast.error(error.message || "Une erreur est survenue, veuillez réessayer.");
         }
     };
+
 
     return (
         <div className="bg-neutral-900 min-h-screen text-white flex items-center justify-center font-mono sm:text-sm">

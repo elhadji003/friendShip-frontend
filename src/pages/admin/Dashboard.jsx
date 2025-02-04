@@ -2,11 +2,15 @@ import React from 'react';
 import { useGetAllUsersQuery } from '../../features/users/userAPI';
 import { FaUser } from 'react-icons/fa';
 
-const UserList = () => {
+const Dashboard = () => {
     const { data: users, error, isLoading } = useGetAllUsersQuery();
 
     if (isLoading) {
-        return <div>Chargement...</div>;
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="border-t-4 border-gray-500 border-solid rounded-full h-16 w-16 animate-spin"></div>
+            </div>
+        );
     }
 
     if (error) {
@@ -45,4 +49,4 @@ const UserList = () => {
     );
 };
 
-export default UserList;
+export default Dashboard;

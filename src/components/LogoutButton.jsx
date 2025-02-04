@@ -16,14 +16,12 @@ const LogoutButton = ({ onLogout, className }) => {
         try {
             await logoutApi().unwrap(); // Utilisation de unwrap() pour gérer proprement l'erreur
 
-            // Suppression du token et de l'utilisateur du localStorage
             localStorage.removeItem("token");
             localStorage.removeItem("user");
 
             // Mise à jour du Redux store
             dispatch(logout());
 
-            // Redirection vers la page d'accueil
             navigate("/", { replace: true });
 
             // Exécution du callback si fourni
