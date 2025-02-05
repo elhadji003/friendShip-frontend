@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faUser, faCog, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faUser, faCog, faBars, faFile } from "@fortawesome/free-solid-svg-icons";
 import LogoutButton from "./LogoutButton";
 import imageDefaultUser from "../assets/user.png";
 import { useGetMeQuery } from "../features/auth/authApi";
@@ -32,6 +32,7 @@ const Sidebar = () => {
                             label: "Dashboard"
                         },
                         { to: "/profile", icon: faUser, label: "Profil" },
+                        { to: "/mes-article", icon: faFile, label: "Mes articles" },
                         { to: "/settings", icon: faCog, label: "Paramètres" }].map((item) => (
                             <li key={item.to}>
                                 <NavLink
