@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser, faCog, faBars, faFile } from "@fortawesome/free-solid-svg-icons";
 import LogoutButton from "./LogoutButton";
 import imageDefaultUser from "../assets/user.png";
-import { useGetMeQuery } from "../features/auth/authApi";
+import { useGetMeQuery } from "../features/auth/authAPI";
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(true);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useLoginMutation, useRegisterMutation } from '../features/auth/authApi';
+import { useLoginMutation, useRegisterMutation } from '../features/auth/authAPI';
 
 const LoginRegister = () => {
     const [isLogin, setIsLogin] = useState(true);

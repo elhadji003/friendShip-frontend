@@ -78,8 +78,8 @@ export const articlesAPI = createApi({
         // Récupérer les likes d'un article (y compris les utilisateurs qui ont aimé)
         getLikes: builder.query({
             query: (articleId) => `/articles/${articleId}/likes`,
+            providesTags: (result, error, articleId) => [{ type: "Likes", id: articleId }],
         }),
-
         // Ajouter un commentaire à un article
         addComment: builder.mutation({
             query: ({ articleId, commentData }) => ({

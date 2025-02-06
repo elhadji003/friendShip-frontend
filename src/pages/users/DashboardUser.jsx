@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGetMeQuery } from '../../features/auth/authApi';
+import { useGetMeQuery } from '../../features/auth/authAPI';
 import { FaBell, FaEnvelope, FaHeart } from 'react-icons/fa';
 import CardArticle from '../../components/cardArticle';
 

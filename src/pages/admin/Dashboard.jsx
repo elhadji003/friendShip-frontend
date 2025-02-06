@@ -20,7 +20,7 @@ const Dashboard = () => {
     return (
         <div>
             <h1 className="text-xl font-bold">Liste des utilisateurs</h1>
-            <table className="min-w-full text-center table-auto border-collapse border border-gray-300 mt-4">
+            <table className="min-w-full text-white text-center table-auto border-collapse border border-gray-300 mt-4">
                 <thead>
                     <tr>
                         <th className="border-b border-gray-300 px-4 py-2">Profile</th>

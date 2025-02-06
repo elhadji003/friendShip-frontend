@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import imageDefaultUser from "../../assets/user.png";
-import { useGetMeQuery, useUpdateProfileImageMutation, useUpdateProfileMutation } from "../../features/auth/authApi";
+import { useGetMeQuery, useUpdateProfileImageMutation, useUpdateProfileMutation } from "../../features/auth/authAPI";
 import { FaCamera, FaEdit, FaSave, FaTrash, FaTimes } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import ModalDeleteAccountModal from "../../components/ModalDeleteAccountModal";
