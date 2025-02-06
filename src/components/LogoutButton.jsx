@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useLogoutMutation } from "../features/auth/authApi";
 import { useDispatch } from "react-redux";
-import { logout } from "../features/auth/authSlice"; // Importe l'action logout
+import { logout } from "../features/auth/authSlice";
 
 const LogoutButton = ({ onLogout, className }) => {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const LogoutButton = ({ onLogout, className }) => {
 
     const handleLogout = async () => {
         try {
-            await logoutApi().unwrap(); // Utilisation de unwrap() pour gérer proprement l'erreur
+            await logoutApi().unwrap();
 
             localStorage.removeItem("token");
             localStorage.removeItem("user");
@@ -22,14 +22,14 @@ const LogoutButton = ({ onLogout, className }) => {
             // Mise à jour du Redux store
             dispatch(logout());
 
+            window.location.reload();
+
             navigate("/", { replace: true });
 
-            // Exécution du callback si fourni
             if (onLogout) onLogout();
         } catch (error) {
             console.error("Erreur de déconnexion :", error);
 
-            // Vérification si l'erreur est une 401 (Token expiré ou invalide)
             if (error?.data?.status === 401) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");

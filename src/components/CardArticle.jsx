@@ -1,70 +1,48 @@
-import { useState } from 'react';
-import { useGetArticlesQuery } from '../features/articles/articlesAPI';
+import React, { useState } from "react";
+import { useGetArticlesQuery } from "../features/articles/articlesAPI";
+import { useGetMeQuery } from "../features/auth/authAPI"
+import Pagination from "./Pagination";
+import imageDefault from '../assets/user.png';
+import LikersList from "./LikersList";
 
 const CardArticle = () => {
-    const { data: articles, isLoading, error } = useGetArticlesQuery();
-    const [openDropdown, setOpenDropdown] = useState(null);
+    const [page, setPage] = useState(1);
+    const { data, error, isLoading } = useGetArticlesQuery(page); // Utilisation de la page dynamique
+    const { data: user } = useGetMeQuery()
+    console.log("Mes articles :", data);
 
-    console.log("Articles :", articles);
-
-    if (isLoading) return <p className="text-center mt-4">Chargement des articles...</p>;
-    if (error) return <p className="text-center mt-4 text-red-500">Erreur lors du chargement des articles.</p>;
+    if (isLoading) return <p>Chargement...</p>;
+    if (error) return <p>Erreur lors du chargement des articles</p>;
 
     return (
-        <div className='mt-6'>
+        <div className="mt-6">
             <div className="bg-white shadow-lg rounded-lg p-6">
-                <h3 className='text-center font-bold text-lg md:text-xl lg:text-2xl'>Mes Articles</h3>
-
-                {/* Liste des articles */}
+                <h3 className="text-center font-bold text-lg md:text-xl lg:text-2xl">Les Articles</h3>
                 <div className="mt-4">
-                    {articles?.map((article, index) => (
-                        <div key={index} className="mb-4 p-4 border-b">
-                            <div className="flex justify-between items-center">
-                                <span className="font-bold text-sm sm:text-base md:text-lg">{article.title}</span>
-
-                                {/* Affichage des likes */}
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-gray-500 text-xs sm:text-sm">{article.likes.length} Likes</span>
-
-                                    {/* Cercles des utilisateurs ayant aimé */}
-                                    <div className="flex items-center -space-x-2">
-                                        {article.likes.slice(0, 3).map((user, userIndex) => (
-                                            <div key={userIndex} className="relative">
-                                                <span className="inline-block h-6 w-6 sm:h-8 sm:w-8 border border-black rounded-full bg-gray-300 text-white text-xs flex items-center justify-center">
-                                                    {user.name.charAt(0)}
-                                                </span>
-                                            </div>
-                                        ))}
-                                        {article.likes.length > 3 && (
-                                            <div className="relative">
-                                                <span
-                                                    className="inline-block h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-gray-300 text-white text-xs flex items-center justify-center cursor-pointer"
-                                                    onClick={() => setOpenDropdown(openDropdown === index ? null : index)}
-                                                >
-                                                    +{article.likes.length - 3}
-                                                </span>
-
-                                                {openDropdown === index && (
-                                                    <div className="absolute -left-20 p-2 bg-white border rounded-lg shadow-lg w-44 z-40">
-                                                        <ul>
-                                                            {article.likes.slice(3).map((user, userIndex) => (
-                                                                <li key={userIndex} className="text-sm text-gray-700 py-1 flex items-center gap-4">
-                                                                    <span className="inline-block h-6 w-6 sm:h-8 sm:w-8 border border-black rounded-full bg-gray-300 text-white text-xs flex items-center justify-center">
-                                                                        {user.name.charAt(0)}
-                                                                    </span>
-                                                                    {user.name}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
+                    {data?.articles?.map((article) => (
+                        <div key={article.id} className="mb-4 flex justify-between">
+                            <div className="flex items-center space-x-4">
+                                <img
+                                    src={article.user?.profile_image_url || imageDefault}
+                                    alt={article.user?.name || "User"}
+                                    className="flex self-start w-8 h-8 rounded-full border border-gray-500"
+                                />
+                                <div>
+                                    <span className="font-semibold">
+                                        {article.user?.id === user?.id ? "Moi" : article.user?.name}
+                                    </span>
+                                    <div className="shadow p-2 text-gray-500 text-sm">
+                                        <p className="font-bold text-gray-900 text-sm">{article.title}</p>
+                                        <span>{article.content}</span>
                                     </div>
+                                    <span> like (1) </span>
+                                    <span> dislike (1) </span>
                                 </div>
                             </div>
+                            <LikersList />
                         </div>
                     ))}
+                    <Pagination page={page} setPage={setPage} hasMore={data?.articles?.length >= data.per_page} />
                 </div>
             </div>
         </div>

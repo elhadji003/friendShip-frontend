@@ -3,8 +3,6 @@ import imageDefaultUser from "../../assets/user.png";
 import { useGetMeQuery, useUpdateProfileImageMutation, useUpdateProfileMutation } from "../../features/auth/authApi";
 import { FaCamera, FaEdit, FaSave, FaTrash, FaTimes } from "react-icons/fa";
 import { toast } from 'react-toastify';
-import Modal from "react-modal";
-import { useDeleteUserMutation } from "../../features/users/userAPI";
 import ModalDeleteAccountModal from "../../components/ModalDeleteAccountModal";
 
 
@@ -12,7 +10,6 @@ const Profile = () => {
     const { data: user, error, isLoading } = useGetMeQuery();
     const [updateProfile] = useUpdateProfileMutation();
     const [updateProfileImage] = useUpdateProfileImageMutation();
-    const [deleteAccount] = useDeleteUserMutation();
 
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState("");

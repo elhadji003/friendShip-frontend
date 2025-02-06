@@ -17,7 +17,7 @@ export const articlesAPI = createApi({
     endpoints: (builder) => ({
         // Récupérer tous les articles
         getArticles: builder.query({
-            query: () => `/articles`,
+            query: (page = 1) => `/articles?page=${page}`,
         }),
 
         // Créer un article
@@ -27,6 +27,11 @@ export const articlesAPI = createApi({
                 method: "POST",
                 body: articleData,
             }),
+        }),
+
+        // Récupérer les articles de l'utilisateur
+        getMyArticle: builder.query({
+            query: (page = 1) => `/user-articles?page=${page}`,
         }),
 
         // Mettre à jour un article
@@ -62,12 +67,17 @@ export const articlesAPI = createApi({
             }),
         }),
 
-        // Supprimer un like d'un article
-        unlikeArticle: builder.mutation({
+        // Ajouter un dislike à un article
+        dislikeArticle: builder.mutation({
             query: (articleId) => ({
-                url: `/articles/${articleId}/like`,
-                method: "DELETE",
+                url: `/articles/${articleId}/dislike`,
+                method: "POST",
             }),
+        }),
+
+        // Récupérer les likes d'un article (y compris les utilisateurs qui ont aimé)
+        getLikes: builder.query({
+            query: (articleId) => `/articles/${articleId}/likes`,
         }),
 
         // Ajouter un commentaire à un article
@@ -96,7 +106,7 @@ export const articlesAPI = createApi({
             }),
         }),
 
-        // Recevoir
+        // Récupérer les articles reçus
         getReceivedArticles: builder.query({
             query: () => "/articles/received",
         }),
@@ -106,11 +116,13 @@ export const articlesAPI = createApi({
 export const {
     useGetArticlesQuery,
     useCreateArticleMutation,
+    useGetMyArticleQuery,
     useUpdateArticleMutation,
     useDeleteArticleMutation,
     useArchiveArticleMutation,
     useLikeArticleMutation,
-    useUnlikeArticleMutation,
+    useDislikeArticleMutation,
+    useGetLikesQuery,
     useAddCommentMutation,
     useDeleteCommentMutation,
     useShareArticleMutation,
