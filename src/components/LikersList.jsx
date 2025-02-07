@@ -28,7 +28,7 @@ const LikersList = ({ articleId }) => {
                     <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-300 text-sm cursor-pointer">
                         +{likers.length - 3}
                     </div>
-                    <div className="absolute left-0 mt-2 hidden group-hover:block bg-white shadow-md p-2 rounded-md w-40 border z-10">
+                    <div className="absolute left-0 mt-2 hidden group-hover:block bg-white shadow-md p-2 rounded-md w-64 border z-10">
                         <h2 className="border-b p-2 mb-2">Aimé par</h2>
                         {likers.map((liker) => (
                             <div key={liker.id} className="flex items-center space-x-2 mb-1">

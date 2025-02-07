@@ -19,6 +19,16 @@ const CardArticle = () => {
     const [liked, setLiked] = useState(null);
     const [disliked, setDisliked] = useState(null);
 
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredArticles = articles.filter(article =>
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.user?.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    console.log("Article :", filteredArticles);
+
     useEffect(() => {
         if (data?.articles) {
             setArticles(data.articles.map(article => ({
@@ -62,19 +72,37 @@ const CardArticle = () => {
     return (
         <div className="mt-6">
             <div className="bg-white shadow-lg rounded-lg p-6">
-                <h3 className="text-center font-bold text-lg">Les Articles</h3>
+                <div className="flex justify-between items-center max-sm:flex-col gap-2 border-b p-3">
+                    <h3 className="text-center font-bold text-lg text-nowrap">Les Articles</h3>
+                    <input
+                        type="text"
+                        className="p-2 border border-black rounded-md outline-none"
+                        placeholder="Rechercher un article..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
                 <div className="mt-4">
-                    {articles.length > 0 ? (
-                        articles.map((article) => (
-                            <div key={article.id} className="mb-4 flex items-center justify-between">
+                    {filteredArticles.length > 0 ? (
+                        filteredArticles.map((article) => (
+                            <div key={article.id} className="mb-4 lg:flex  items-center justify-between">
                                 <div className="flex items-center space-x-4">
-                                    <img
-                                        src={article.user?.profile_image_url || imageDefault}
-                                        alt={article.user?.name || "User"}
-                                        className="w-8 h-8 rounded-full border"
-                                    />
+                                    <div className="relative inline-flex self-start">
+                                        {/* Effet animate-ping uniquement sur la bordure */}
+                                        <div className={`absolute inset-0 w-8 h-8 rounded-full border-4 ${article.user?.is_connected ? "border-green-500 animate-ping" : "border-red-500"}`}></div>
+
+                                        {/* Image de l'utilisateur */}
+                                        <img
+                                            src={article.user?.profile_image_url || imageDefault}
+                                            alt={article.user?.name || "User"}
+                                            className="w-8 h-8 rounded-full border bg-white"
+                                        />
+                                    </div>
+
                                     <div>
-                                        <span className="font-semibold">{article.user?.id === user?.id ? "Moi" : article.user?.name}</span>
+                                        <div className="flex items-center gap-3">
+                                            <span className="font-semibold">{article.user?.id === user?.id ? "Moi" : article.user?.name}</span>
+                                        </div>
                                         <div className="shadow p-2 text-gray-500 text-sm">
                                             <p className="font-bold text-gray-900">{article.title}</p>
                                             <span>{article.content}</span>
@@ -115,7 +143,9 @@ const CardArticle = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <LikersList articleId={article.id} />
+                                <div>
+                                    <LikersList articleId={article.id} />
+                                </div>
                             </div>
                         ))
                     ) : (

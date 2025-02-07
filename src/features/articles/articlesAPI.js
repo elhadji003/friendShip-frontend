@@ -36,9 +36,9 @@ export const articlesAPI = createApi({
 
         // Mettre à jour un article
         updateArticle: builder.mutation({
-            query: ({ articleId, updatedData }) => ({
-                url: `/articles/${articleId}`,
-                method: "PUT",
+            query: ({ id, updatedData }) => ({
+                url: `/articles/${id}`,
+                method: 'PUT',
                 body: updatedData,
             }),
         }),
@@ -80,6 +80,12 @@ export const articlesAPI = createApi({
             query: (articleId) => `/articles/${articleId}/likes`,
             providesTags: (result, error, articleId) => [{ type: "Likes", id: articleId }],
         }),
+
+        getTotalLike: builder.query({
+            query: () => `/user/total-likes`,
+            providesTags: ["Likes"],
+        }),
+
         // Ajouter un commentaire à un article
         addComment: builder.mutation({
             query: ({ articleId, commentData }) => ({
@@ -122,6 +128,7 @@ export const {
     useArchiveArticleMutation,
     useLikeArticleMutation,
     useDislikeArticleMutation,
+    useGetTotalLikeQuery,
     useGetLikesQuery,
     useAddCommentMutation,
     useDeleteCommentMutation,

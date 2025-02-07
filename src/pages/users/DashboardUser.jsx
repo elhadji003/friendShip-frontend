@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { useGetMeQuery } from '../../features/auth/authAPI';
 import { FaBell, FaEnvelope, FaHeart } from 'react-icons/fa';
 import CardArticle from '../../components/cardArticle';
+import { useGetTotalLikeQuery } from '../../features/articles/articlesAPI';
 
 const DashboardUser = () => {
     const { data: user, error, isLoading } = useGetMeQuery();
+    const { data: likesData, error: likesError } = useGetTotalLikeQuery();
+
     const [showMore, setShowMore] = useState(false);
 
     const amis = [
@@ -39,7 +42,7 @@ const DashboardUser = () => {
             {/* Dashboard Content */}
             <div className="flex-1">
                 {/* Cards */}
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+                <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6'>
                     <div className="bg-white shadow-lg rounded-lg p-4 flex items-center gap-4">
                         <FaBell className="text-gray-700 text-xl" />
                         <span className="font-bold">Notification</span>
@@ -50,7 +53,7 @@ const DashboardUser = () => {
                     </div>
                     <div className="bg-white shadow-lg rounded-lg p-4 flex items-center gap-4">
                         <FaHeart className="text-gray-700 text-xl" />
-                        <span className="font-bold">Likes [+2900]</span>
+                        <span className="font-bold">Likes {likesData?.total_likes || 0}</span>
                     </div>
                 </div>
                 {/* Articles */}

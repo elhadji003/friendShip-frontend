@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
-import { authAPI } from '../features/auth/authApi';
+import { authAPI } from '../features/auth/authAPI';
 import { userAPI } from '../features/users/userAPI';
 import { articlesAPI } from '../features/articles/articlesAPI';
 
