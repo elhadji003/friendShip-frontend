@@ -45,8 +45,8 @@ export const articlesAPI = createApi({
 
         // Supprimer un article
         deleteArticle: builder.mutation({
-            query: (articleId) => ({
-                url: `/articles/${articleId}`,
+            query: (id) => ({
+                url: `/articles/${id}`,
                 method: "DELETE",
             }),
         }),
