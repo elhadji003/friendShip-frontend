@@ -85,25 +85,21 @@ const CardArticle = () => {
                 <div className="mt-4">
                     {filteredArticles.length > 0 ? (
                         filteredArticles.map((article) => (
-                            <div key={article.id} className="mb-4 lg:flex  items-center justify-between">
-                                <div className="flex items-center space-x-4">
-                                    <div className="relative inline-flex self-start">
-                                        {/* Effet animate-ping uniquement sur la bordure */}
+                            <div key={article.id} className="mb-4 lg:flex items-center max-sm:shadow-lg max-sm:p-3">
+                                <div className="flex flex-col gap-2 w-9/12">
+                                    <div className="relative inline-flex self-start gap-3">
                                         <div className={`absolute inset-0 w-8 h-8 rounded-full border-4 ${article.user?.is_connected ? "border-green-500 animate-ping" : "border-red-500"}`}></div>
-
-                                        {/* Image de l'utilisateur */}
                                         <img
                                             src={article.user?.profile_image_url || imageDefault}
                                             alt={article.user?.name || "User"}
-                                            className="w-8 h-8 rounded-full border bg-white"
+                                            className="w-8 h-8 rounded-full border bg-white "
                                         />
-                                    </div>
-
-                                    <div>
                                         <div className="flex items-center gap-3">
                                             <span className="font-semibold">{article.user?.id === user?.id ? "Moi" : article.user?.name}</span>
                                         </div>
-                                        <div className="shadow p-2 text-gray-500 text-sm">
+                                    </div>
+                                    <div>
+                                        <div className="shadow p-2 w-full text-gray-500 text-sm">
                                             <p className="font-bold text-gray-900">{article.title}</p>
                                             <span>{article.content}</span>
                                         </div>
@@ -143,7 +139,7 @@ const CardArticle = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div className="w-3/12 flex justify-end max-sm:w-full max-sm:justify-start max-lg:justify-start">
                                     <LikersList articleId={article.id} />
                                 </div>
                             </div>
