@@ -34,7 +34,10 @@ const CardArticle = () => {
                 user_like: article.user_like ?? null
             })));
         }
+
     }, [data]);
+
+    const [refreshLikers, setRefreshLikers] = useState(false);
 
     const handleReaction = async (articleId, action) => {
         if (!user) return;
@@ -57,11 +60,14 @@ const CardArticle = () => {
 
         try {
             action === "like" ? await likeArticle(articleId).unwrap() : await dislikeArticle(articleId).unwrap();
+            setRefreshLikers(prev => !prev); // Déclenche le rafraîchissement
             refetch();
         } catch (error) {
             console.error(`Erreur lors du ${action} :`, error);
         }
     };
+
+
 
     if (isLoading) return <p>Chargement...</p>;
     if (error) return <p>Erreur lors du chargement des articles</p>;
@@ -137,7 +143,7 @@ const CardArticle = () => {
                                     </div>
                                 </div>
                                 <div className="w-3/12 flex justify-end max-sm:w-full max-sm:justify-start max-lg:justify-start">
-                                    <LikersList articleId={article.id} />
+                                    <LikersList articleId={article.id} refreshLikers={refreshLikers} />
                                 </div>
                             </div>
                         ))

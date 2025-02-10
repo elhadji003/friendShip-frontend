@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import imgDefault from "../assets/user.png";
 import { useGetLikesQuery } from "../features/articles/articlesAPI";
 
-const LikersList = ({ articleId }) => {
-    const { data, isLoading, error } = useGetLikesQuery(articleId, {
-        pollingInterval: 2000,
-    });
+const LikersList = ({ articleId, refreshLikers }) => {
+    const { data, isLoading, error, refetch } = useGetLikesQuery(articleId);
+
+    useEffect(() => {
+        refetch();
+    }, [refreshLikers, refetch]);
 
     if (isLoading) return <p>Chargement...</p>;
     if (error) return <p>Erreur lors du chargement des likes.</p>;

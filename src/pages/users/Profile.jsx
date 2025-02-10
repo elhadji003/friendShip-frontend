@@ -170,11 +170,10 @@ const Profile = () => {
                         { label: "Téléphone", value: phone, onChange: setPhone, id: "phone" },
                         { label: "Ville", value: ville, onChange: setVille, id: "ville" },
                         { label: "Pays", value: pays, onChange: setPays, id: "pays" },
-                        // { label: "Rôle", value: role, onChange: setRole, id: "role" },
                         { label: "Genre", value: gender, onChange: setGender, id: "gender" },
                     ].map((field, index) => (
                         <div key={index}>
-                            <label htmlFor={field.id} className="block text-gray-700">{field.label}</label>
+                            <label htmlFor={field.id} className="block text-gray-700">{field.label || "Non definit"}</label>
                             {isEditing ? (
                                 <input
                                     type="text"
