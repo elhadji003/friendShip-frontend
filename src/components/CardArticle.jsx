@@ -6,10 +6,8 @@ import imageDefault from '../assets/user.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import LikersList from "./LikersList";
-import { useParams } from "react-router-dom"; // Import useParams
 
 const CardArticle = () => {
-    const { articleId } = useParams(); // Correct usage of useParams
     const [page, setPage] = useState(1);
     const { data, error, isLoading, refetch } = useGetArticlesQuery(page);
     const { data: user } = useGetMeQuery();
@@ -41,7 +39,6 @@ const CardArticle = () => {
     const handleReaction = async (articleId, action) => {
         if (!user) return;
 
-        // Ajout de l'animation de scale lors du clic
         if (action === "like") setLiked(articleId);
         if (action === "dislike") setDisliked(articleId);
 

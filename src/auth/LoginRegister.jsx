@@ -13,6 +13,7 @@ const LoginRegister = () => {
         gender: 'male',
     });
 
+
     const navigate = useNavigate();
 
     const [login, { isLoading: isLoginLoading }] = useLoginMutation();
@@ -49,6 +50,8 @@ const LoginRegister = () => {
                 // Vérifier le rôle de l'utilisateur
                 const isAdmin = response.role === "admin";
 
+                console.log("Role :", isAdmin);
+
                 if (isAdmin) {
                     navigate('/dashboard-admin');
                 } else {
@@ -63,12 +66,12 @@ const LoginRegister = () => {
                     email: formData.email,
                     password: formData.password,
                     password_confirmation: formData.password_confirmation,
-                    gender: formData.gender, // Envoi du gender lors de l'inscription
+                    gender: formData.gender,
                 }).unwrap();
                 toast.success("Inscription réussie");
                 setIsLogin(true);
                 navigate('/login-register');
-                refetch();
+                // refetch();
             }
         } catch (error) {
             console.log(error.message || "Une erreur est survenue, veuillez réessayer.");
