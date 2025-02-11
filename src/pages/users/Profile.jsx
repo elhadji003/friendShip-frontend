@@ -8,6 +8,10 @@ import ModalDeleteAccountModal from "../../components/ModalDeleteAccountModal";
 
 const Profile = () => {
     const { data: user, error, isLoading } = useGetMeQuery();
+
+    console.log("Me :"), user;
+
+
     const [updateProfile] = useUpdateProfileMutation();
     const [updateProfileImage] = useUpdateProfileImageMutation();
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGetMeQuery } from '../../features/auth/authAPI';
 import { FaBell, FaEnvelope, FaHeart } from 'react-icons/fa';
-import CardArticle from '../../components/cardArticle';
+import CardArticle from '../../components/CardArticle';
 import { useGetTotalLikeQuery } from '../../features/articles/articlesAPI';
 
 const DashboardUser = () => {

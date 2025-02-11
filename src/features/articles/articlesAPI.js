@@ -67,14 +67,6 @@ export const articlesAPI = createApi({
             }),
         }),
 
-        // Ajouter un dislike à un article
-        dislikeArticle: builder.mutation({
-            query: (articleId) => ({
-                url: `/articles/${articleId}/dislike`,
-                method: "POST",
-            }),
-        }),
-
         // Récupérer les likes d'un article (y compris les utilisateurs qui ont aimé)
         getLikes: builder.query({
             query: (articleId) => `/articles/${articleId}/likes`,
@@ -127,7 +119,6 @@ export const {
     useDeleteArticleMutation,
     useArchiveArticleMutation,
     useLikeArticleMutation,
-    useDislikeArticleMutation,
     useGetTotalLikeQuery,
     useGetLikesQuery,
     useAddCommentMutation,
