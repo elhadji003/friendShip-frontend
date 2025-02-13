@@ -59,6 +59,7 @@ const LoginRegister = () => {
                 }
 
                 toast.success("Connexion réussie");
+
             } else {
                 // Inscription
                 await register({
@@ -74,8 +75,10 @@ const LoginRegister = () => {
                 // refetch();
             }
         } catch (error) {
-            console.log(error.message || "Une erreur est survenue, veuillez réessayer.");
+            console.log(error?.data?.message || "Une erreur est survenue, veuillez réessayer.");
+            toast.error(error?.data?.message || "Email ou mot de passe incorrect.");
         }
+
     };
 
 
